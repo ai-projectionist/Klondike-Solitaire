@@ -1,0 +1,365 @@
+/* Solitaire.css - Add these at the top */
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    /* Or your preferred base font */
+    /* Consider a very dark background for the body if .solitaire doesn't cover everything */
+    /* background-color: #05100a; */
+}
+
+.solitaire {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensure it takes at least full viewport height */
+    width: 100%;
+    /* Ensure it takes full viewport width */
+    background-color: #0a1f08;
+    /* Dark, desaturated green for the game background */
+    /* Potentially add a subtle texture or very dark pattern later if desired */
+    /* background-image: url('path/to/subtle-texture.png'); */
+}
+
+/* Ensure TopBar itself doesn't have margins causing gaps if its parent is full-width */
+/* (This is generally handled by .top-bar-container styles in TopBar.css already, 
+   but good to keep in mind if issues persist) */
+/* .top-bar-container { margin: 0; } */
+
+.game-area {
+    flex-grow: 1;
+    /* Allows game area to take remaining space */
+    display: flex;
+    flex-direction: column;
+    /* padding: 20px; /* Original padding, adjust as needed or remove if max-width handles spacing */
+    gap: 20px;
+    overflow: hidden;
+    /* Prevent scrollbars if content overflows slightly due to padding/margins */
+    width: 100%;
+    /* It will be constrained by max-width */
+    max-width: 1400px;
+    /* Restore or set your desired fixed width */
+    margin: 0 auto;
+    /* Center the game area */
+    padding-left: 20px;
+    /* Add padding back for internal spacing if needed */
+    padding-right: 20px;
+    /* Add padding back for internal spacing if needed */
+    padding-top: 20px;
+    /* Add some space from the TopBar */
+    padding-bottom: 20px;
+    /* Add some space at the bottom */
+    box-sizing: border-box;
+    /* Ensure padding is included in width calculations */
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* Add other styling as needed */
+}
+
+.stock-waste {
+    display: flex;
+    gap: 65px;
+    margin-right: auto;
+    position: relative;
+    overflow: visible;
+}
+
+.stock,
+.waste {
+    width: 140px;
+    height: 196px;
+    border: 2px dashed #ffffff33;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+.stock:hover,
+.waste:hover {
+    border-color: #ffffff66;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.foundation {
+    display: flex;
+    gap: 30px;
+    margin-left: auto;
+}
+
+.foundation-pile {
+    width: 140px;
+    height: 196px;
+    border: 2px dashed #ffffff33;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.foundation-pile.drag-over {
+    border-color: #ffffff99;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+.tableau {
+    display: flex;
+    margin-top: 20px;
+    gap: 40px;
+    overflow: visible;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.tableau-pile {
+    width: 140px;
+    /* Width of one card */
+    height: 196px;
+    /* Height of one card, this makes it the base outline */
+    border: 2px dashed #ffffff33;
+    /* The "katkoviivat" */
+    border-radius: 8px;
+    position: relative;
+    /* Crucial for absolute positioning of cards within */
+    flex-shrink: 0;
+    box-sizing: border-box;
+    /* Include border in width/height */
+    /* The old min-height for stack calculation is no longer needed here, 
+       as overflow will just happen if cards exceed this fixed height. 
+       Alternatively, min-height: 196px and let cards expand it. 
+       Let's use fixed height for a distinct base outline. */
+}
+
+/* Remove .tableau-pile-placeholder styles as it's no longer used */
+/* 
+.tableau-pile-placeholder {
+    width: 140px; 
+    height: 196px; 
+    border: 2px dashed #ffffff33; 
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box; 
+}
+*/
+
+.tableau-pile.drag-over {
+    /* If you want the border to change on drag over, you can do it here */
+    /* border-color: #ffffff99; */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Keep background highlight */
+    /* The existing border-radius: 8px from .tableau-pile is fine */
+}
+
+.tableau-pile .card-container {
+    /* Styles for card-container are now mostly inline in TableauPile.js for position, top, zIndex, width */
+    /* If there were other general .card-container styles (like margins, specific non-positional things), 
+       they could live here or in a Card.css. 
+       The ones from Solitaire.css previously were: 
+       position: absolute; left: 0; width: 100%; 
+       These are now inline for clarity within TableauPile.js */
+}
+
+.card-container {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.card {
+    width: 240px;
+    height: 336px;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.card:active {
+    cursor: grabbing;
+}
+
+.card.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card.red {
+    color: #d40000;
+}
+
+.card.black {
+    color: #000000;
+}
+
+.card.face-down {
+    background: linear-gradient(135deg, #1a4d2e 0%, #2c8a3d 100%);
+    background-image:
+        linear-gradient(45deg, #1a4d2e 25%, transparent 25%),
+        linear-gradient(-45deg, #1a4d2e 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #1a4d2e 75%),
+        linear-gradient(-45deg, transparent 75%, #1a4d2e 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: default;
+}
+
+.card.face-down::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 8px;
+}
+
+.card-rank {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-suit {
+    font-size: 3em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-back {
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add corner decorations */
+.card::before,
+.card::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.card::before {
+    top: 4px;
+    left: 4px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.card::after {
+    bottom: 4px;
+    right: 4px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Ensure proper card stacking */
+.tableau-pile .card-container {
+    z-index: 1;
+}
+
+.tableau-pile .card-container:last-child {
+    z-index: 2;
+}
+
+.tableau-pile .card-container.dragging {
+    z-index: 3;
+}
+
+/* Ensure proper card overlap in tableau */
+.tableau-pile {
+    min-height: calc(196px + (20px * 12));
+}
+
+.tableau-pile .card-container:not(:first-child) {
+    top: 20px;
+}
+
+/* Foundation card positioning */
+.foundation-pile .card-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+/* Styles for the messages */
+.game-won-message,
+.game-over-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 50, 0, 0.85);
+    /* Darker, semi-transparent green */
+    color: white;
+    /* Default color for text */
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 1000;
+    /* Ensure it\'s on top of everything */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.game-won-message h2 {
+    color: #FFD700;
+    /* Gold color for win message */
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.game-over-message h2 {
+    color: #FF6347;
+    /* Tomato color for game over message H2 */
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.game-over-message p {
+    color: #FFFFFF;
+    /* White color for the sub-text */
+    font-size: 1em;
+}

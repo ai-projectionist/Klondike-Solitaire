@@ -1,0 +1,146 @@
+/* src/components/TopBar.css */
+.top-bar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    /* Reduced vertical padding slightly, horizontal maintained */
+    background: linear-gradient(to bottom, #0f341a, #0a2312);
+    /* Rich dark green gradient */
+    color: #f0e68c;
+    /* Khaki/pale gold text color for a classic feel */
+    border-bottom: 3px solid #c8a867;
+    /* Gold-like border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* More pronounced shadow */
+    min-height: 70px;
+    /* Use min-height to allow content to expand if needed */
+    height: auto;
+    /* Let content dictate height, min-height provides a base */
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+    /* A more classic/elegant font */
+}
+
+.top-bar-decoration {
+    display: flex;
+    align-items: center;
+}
+
+.suit-icon {
+    font-size: 36px;
+    /* Increased from 28px */
+    margin: 0 10px;
+    /* Slightly increased margin for better spacing with larger icons */
+    color: #d4af37;
+    /* Old gold color for suits */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* Slight shadow for depth */
+}
+
+/* Specific adjustments for left/right decorations if needed */
+.top-bar-decoration-left .suit-icon:first-child {
+    color: #b22222;
+}
+
+/* Firebrick red for spades (example) */
+.top-bar-decoration-left .suit-icon:last-child {
+    color: #ff4500;
+}
+
+/* Orangered for hearts (example) */
+.top-bar-decoration-right .suit-icon:first-child {
+    color: #b22222;
+}
+
+/* Firebrick red for diamonds (example) */
+.top-bar-decoration-right .suit-icon:last-child {
+    color: #2f4f4f;
+}
+
+/* Dark slate gray for clubs (example) */
+
+
+.top-bar-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    /* Stack title and controls vertically */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px 0;
+    /* Add some vertical padding to push title/controls from edges */
+}
+
+.game-title {
+    margin: 0 0 5px 0;
+    /* Space below title */
+    font-size: 1.8em;
+    /* Larger title */
+    font-weight: bold;
+    color: #fff8dc;
+    /* Cornsilk white, softer than pure white */
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.game-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* Space between button and recycles text */
+    margin-top: 5px;
+    /* Add a little space between title and controls */
+    /* Button should not touch bottom border due to .top-bar-content padding */
+}
+
+.top-bar-text.recycles-info {
+    margin: 0;
+    font-size: 0.95em;
+    font-weight: 500;
+    color: #f5deb3;
+    /* Wheat color, slightly lighter */
+}
+
+.top-bar-button.new-game-btn {
+    background-color: #8b4513;
+    /* Saddle brown, for a classic look */
+    color: #fff8dc;
+    /* Cornsilk white text */
+    border: 2px outset #a0522d;
+    /* Sienna border for depth */
+    padding: 8px 18px;
+    /* Slightly more padding */
+    border-radius: 8px;
+    /* More rounded corners */
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    /* Inner shadow for button effect */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    font-family: 'Georgia', serif;
+}
+
+.top-bar-button.new-game-btn:hover {
+    background-color: #a0522d;
+    /* Sienna on hover */
+    border-color: #8b4513;
+}
+
+.top-bar-button.new-game-btn:active {
+    background-color: #70360f;
+    /* Darker brown when clicked */
+    transform: translateY(1px) scale(0.98);
+    /* Press down effect */
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* 
+Ensure game-area below top-bar doesn't get overlapped if top-bar becomes fixed/absolute in future 
+.solitaire > .game-area {
+    margin-top: 70px; /* Should match .top-bar-container height * /
+} 
+*/
