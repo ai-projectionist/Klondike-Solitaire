@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Klondike-Solitaire/static/css/main.70395d19.css",
+    "main.js": "/Klondike-Solitaire/static/js/main.930f7cd4.js",
+    "static/js/453.5723e97c.chunk.js": "/Klondike-Solitaire/static/js/453.5723e97c.chunk.js",
+    "index.html": "/Klondike-Solitaire/index.html",
+    "main.70395d19.css.map": "/Klondike-Solitaire/static/css/main.70395d19.css.map",
+    "main.930f7cd4.js.map": "/Klondike-Solitaire/static/js/main.930f7cd4.js.map",
+    "453.5723e97c.chunk.js.map": "/Klondike-Solitaire/static/js/453.5723e97c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70395d19.css",
+    "static/js/main.930f7cd4.js"
+  ]
+}
